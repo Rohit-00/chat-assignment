@@ -22,3 +22,7 @@ Run the application
 ```bash
 npx expo run android
 ```
+on IOS
+```bash
+npx expo run ios
+```
