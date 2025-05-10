@@ -1,7 +1,7 @@
-import { View, Platform, KeyboardAvoidingView, Image, StyleSheet } from 'react-native';
-import { GiftedChat, Actions } from 'react-native-gifted-chat';
+import { View, Platform, KeyboardAvoidingView, Image, StyleSheet, ActivityIndicator } from 'react-native';
+import { GiftedChat, Actions, Bubble, Avatar } from 'react-native-gifted-chat';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { Send } from 'react-native-gifted-chat';
 import Octicons from '@expo/vector-icons/Octicons';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
@@ -11,7 +11,31 @@ import { Menu, MenuOption, MenuOptions, MenuTrigger, renderers } from 'react-nat
 import Ionicons from '@expo/vector-icons/Ionicons';
 const { Popover } = renderers
 
+const CustomAvatar = (props: any) => {
+  return (
+    <View style={{ marginBottom: 20 }}>
+      <Avatar {...props} />
+    </View>
+  );
+};
 
+const CustomBubble = (props: any) => {
+  return (
+    <Bubble
+      {...props}
+      wrapperStyle={{
+        right: {
+          marginBottom: 20,
+
+        },
+        left: {
+          marginBottom: 20,
+
+        }
+      }}
+    />
+  );
+};
 const CustomInputBar = (props: any) => {
   return (
     <View style={{ flexDirection: 'row', alignItems: 'center',paddingVertical:3,paddingHorizontal:15, margin:10, backgroundColor:'white',borderRadius:10 }}>
@@ -103,16 +127,56 @@ const renderMessageImage = (props:any) => {
 };
 
 
-const renderBubble = () => {
 
-}
 export default function ChatScreen() {
   const [messages, setMessages] = useState([]);
+  const [page, setPage] = useState(0);
+  const [isLoadingEarlier, setIsLoadingEarlier] = useState(false);
+const renderFooter = () => {
+  if (isLoadingEarlier) {
+    return (
+      <View style={{ padding: 10, alignItems: 'center' }}>
+        <ActivityIndicator size="small" color="#555" />
+      </View>
+    );
+  }
+  return null;
+};
+const fetchChats = async (page: number) => {
+  const response = await fetch(`https://qa.corider.in/assignment/chat?page=${page}`);
+  const data = await response.json();
+  return data.chats.map((chat: any) => ({
+    _id: chat.id,
+    text: chat.message.replace(/<br\s*\/?>/gi, '\n'),
+    createdAt: new Date(chat.time),
+    user: {
+      _id: chat.sender.self ? 1 : chat.sender.user_id,
+      avatar: chat.sender.image,
+      name: chat.sender.user_id
+    }
+  }));
+};
+
+useEffect(() => {
+  (async () => {
+    const initialMessages = await fetchChats(0);
+    setMessages(initialMessages.reverse());
+  })();
+}, []);
+
+const onLoadEarlier = async () => {
+  setIsLoadingEarlier(true);
+  const nextPage = page + 1;
+  const olderMessages = await fetchChats(nextPage);
+  setMessages((prev) => GiftedChat.prepend(prev, olderMessages.reverse()));
+  setPage(nextPage);
+  setIsLoadingEarlier(false);
+};
+
 
 const onSend = useCallback((newMessages = []) => {
   setMessages(previousMessages => {
     const updated = GiftedChat.append(previousMessages, newMessages);
-    console.log('Updated messages:', updated);
     return updated;
   });
 }, []);
@@ -125,14 +189,26 @@ const onSend = useCallback((newMessages = []) => {
         style={{ flex: 1 }}
       >
         <GiftedChat
-          messages={messages}
-          onSend={onSend}
-          user={{
-            _id: 1,
+            messages={messages}
+  onSend={onSend}
+  user={{ _id: 1 }}
+  renderMessageImage={renderMessageImage}
+  renderInputToolbar={CustomInputBar}
+  alwaysShowSend={true}
+  renderAvatar={CustomAvatar}
+  renderBubble={CustomBubble}
+  isLoadingEarlier={isLoadingEarlier}
+onLoadEarlier={onLoadEarlier}
+          loadEarlier
+          infiniteScroll
+          listViewProps={{
+            initialNumToRender: 20,
+            maxToRenderPerBatch: 10,
+            windowSize: 5,
+            removeClippedSubviews: true,
+            onEndReachedThreshold: 0.1,
           }}
-          renderMessageImage={renderMessageImage}
-          renderInputToolbar={CustomInputBar}
-          alwaysShowSend={true}
+     
         />
       </KeyboardAvoidingView>
     </SafeAreaView>
