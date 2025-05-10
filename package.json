@@ -4,15 +4,21 @@
   "main": "index.ts",
   "scripts": {
     "start": "expo start",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
+    "android": "expo run:android",
+    "ios": "expo run:ios",
     "web": "expo start --web"
   },
   "dependencies": {
     "expo": "~53.0.9",
+    "expo-image-picker": "~16.1.4",
     "expo-status-bar": "~2.2.3",
     "react": "19.0.0",
-    "react-native": "0.79.2"
+    "react-native": "0.79.2",
+    "react-native-gifted-chat": "^2.8.1",
+    "react-native-keyboard-controller": "^1.17.1",
+    "react-native-popup-menu": "^0.17.0",
+    "react-native-reanimated": "~3.17.4",
+    "react-native-safe-area-context": "5.4.0"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
