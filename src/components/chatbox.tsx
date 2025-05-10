@@ -13,7 +13,7 @@ const { Popover } = renderers
 
 const CustomAvatar = (props: any) => {
   return (
-    <View style={{ marginBottom: 20 }}>
+    <View style={{ marginBottom: 20,marginLeft:12 }}>
       <Avatar {...props} />
     </View>
   );
@@ -26,10 +26,13 @@ const CustomBubble = (props: any) => {
       wrapperStyle={{
         right: {
           marginBottom: 20,
+          marginRight:12,
+          elevation:5
 
         },
         left: {
           marginBottom: 20,
+          elevation:2
 
         }
       }}
@@ -38,7 +41,7 @@ const CustomBubble = (props: any) => {
 };
 const CustomInputBar = (props: any) => {
   return (
-    <View style={{ flexDirection: 'row', alignItems: 'center',paddingVertical:3,paddingHorizontal:15, margin:10, backgroundColor:'white',borderRadius:10 }}>
+    <View style={{ flexDirection: 'row', alignItems: 'center',paddingVertical:0,paddingHorizontal:15, marginHorizontal:20, backgroundColor:'white',borderRadius:10 }}>
       <Composer
         {...props}
         textInputStyle={{ flex: 1 }}
@@ -186,7 +189,8 @@ const onSend = useCallback((newMessages = []) => {
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
         keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 0}
-        style={{ flex: 1 }}
+        style={{ flex: 1, borderTopColor:'#E5E5E0',borderTopWidth:1,marginTop:-10 }}
+        
       >
         <GiftedChat
             messages={messages}
@@ -215,11 +219,5 @@ onLoadEarlier={onLoadEarlier}
   );
 }
 const styles = StyleSheet.create({
-  anchor:{
-    backgroundColor:'#000',
-    width:10,
-    height:10,
-    borderRadius:50,
-    marginLeft:5,
-  }
+
 })

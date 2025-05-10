@@ -33,7 +33,7 @@ const GroupInfo = () => {
         </MenuTrigger>
         <MenuOptions customStyles={{
             optionsWrapper:{
-               borderWidth:0.5,
+               borderWidth:1,
                borderColor:'#E5E5E0'
             },
   optionsContainer: {
@@ -47,11 +47,11 @@ const GroupInfo = () => {
   }
 }}
 >
-        <MenuOption onSelect={() => alert(`Save`)} style={{borderBottomWidth:0.5,borderBottomColor:'#E5E5E0',padding:15,flexDirection:'row', gap:8}} >
+        <MenuOption onSelect={() => alert(`Save`)} style={{borderBottomWidth:1,borderBottomColor:'#E5E5E0',padding:15,flexDirection:'row', gap:8}} >
             <Ionicons name="people-outline" size={24} color={colors.text} />
             <Text style={styles.menuText}>Members</Text>
             </MenuOption>
-        <MenuOption onSelect={() => alert(`Delete`)} style={{borderBottomWidth:0.5,borderBottomColor:'#E5E5E0',padding:15, flexDirection:'row',gap:8}} >
+        <MenuOption onSelect={() => alert(`Delete`)} style={{borderBottomWidth:1,borderBottomColor:'#E5E5E0',padding:15, flexDirection:'row',gap:8}} >
             <Ionicons name="call-outline" size={24} color={colors.text} />
           <Text style={styles.menuText}>Share Number</Text>
         </MenuOption>
@@ -75,6 +75,7 @@ const styles = StyleSheet.create({
         alignItems:'center',
         justifyContent:'space-between',
         marginHorizontal:20,
+      
     },
     groupImage:{
         width:50,
