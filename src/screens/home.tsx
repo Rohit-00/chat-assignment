@@ -7,9 +7,8 @@ import ChatBox from '../components/chatbox';
 import { MenuProvider } from 'react-native-popup-menu';
 import { colors } from '../../utils/colors';
 const Home = () => {
-
   return (
-    <SafeAreaView style={{ flex: 1,marginTop:20}} >
+    <SafeAreaView style={{ flex: 1,marginTop:40}} >
       <View style={styles.topBar}>
         <TouchableOpacity style={styles.backButton}>
         <AntDesign name="arrowleft" size={24} color="black" />

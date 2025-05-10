@@ -1,19 +1,31 @@
 import { View, Platform, KeyboardAvoidingView, Image, StyleSheet, ActivityIndicator } from 'react-native';
-import { GiftedChat, Actions, Bubble, Avatar } from 'react-native-gifted-chat';
-import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
+import { GiftedChat, Bubble, Avatar } from 'react-native-gifted-chat';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import React, { useState, useCallback, useEffect } from 'react';
 import { Send } from 'react-native-gifted-chat';
 import Octicons from '@expo/vector-icons/Octicons';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
-import * as ImagePicker from 'expo-image-picker'; 
-import { InputToolbar, Composer } from 'react-native-gifted-chat';
+import { Composer } from 'react-native-gifted-chat';
 import { Menu, MenuOption, MenuOptions, MenuTrigger, renderers } from 'react-native-popup-menu';
 import Ionicons from '@expo/vector-icons/Ionicons';
 const { Popover } = renderers
+import { MessageText } from 'react-native-gifted-chat';
+
+const renderMessageText = (props: any) => {
+  return (
+    <MessageText
+      {...props}
+      textStyle={{
+        left: { fontSize: 14, color:'#606060' },   // for received messages
+        right: { fontSize: 14, color:'#FFFFFF' },  // for sent messages
+      }}
+    />
+  );
+};
 
 const CustomAvatar = (props: any) => {
   return (
-    <View style={{ marginBottom: 20,marginLeft:12 }}>
+    <View style={{ marginBottom: 20,alignItems:'center' }}>
       <Avatar {...props} />
     </View>
   );
@@ -26,13 +38,11 @@ const CustomBubble = (props: any) => {
       wrapperStyle={{
         right: {
           marginBottom: 20,
-          marginRight:12,
           elevation:5
-
         },
         left: {
           marginBottom: 20,
-          elevation:2
+          elevation:2,
 
         }
       }}
@@ -71,7 +81,7 @@ const CustomInputBar = (props: any) => {
           }
         }}
       /> */}
-          <Menu renderer={Popover} rendererProps={{ placement:'top',anchorStyle:{backgroundColor:'green'}}} >
+          <Menu renderer={Popover} rendererProps={{ placement:'top',anchorStyle:{backgroundColor:'#008000'}}} >
       <MenuTrigger>
         <MaterialCommunityIcons name="attachment" size={30} color="#141E0D" style={{ padding: 10, transform:[{rotate:'135deg'}]  }} />
       </MenuTrigger>
@@ -86,7 +96,7 @@ const CustomInputBar = (props: any) => {
         },
         
   optionsContainer: {
-    backgroundColor:'green',
+    backgroundColor:'#008000',
     borderRadius: 50,
     flexDirection:'row',
     paddingVertical:5,
@@ -189,7 +199,7 @@ const onSend = useCallback((newMessages = []) => {
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
         keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 0}
-        style={{ flex: 1, borderTopColor:'#E5E5E0',borderTopWidth:1,marginTop:-10 }}
+        style={{ flex: 1, borderTopColor:'#E5E5E0',borderTopWidth:1,marginTop:-10,marginHorizontal:10 }}
         
       >
         <GiftedChat
@@ -201,6 +211,7 @@ const onSend = useCallback((newMessages = []) => {
   alwaysShowSend={true}
   renderAvatar={CustomAvatar}
   renderBubble={CustomBubble}
+  renderMessageText={renderMessageText}
   isLoadingEarlier={isLoadingEarlier}
 onLoadEarlier={onLoadEarlier}
           loadEarlier
@@ -218,6 +229,3 @@ onLoadEarlier={onLoadEarlier}
     </SafeAreaView>
   );
 }
-const styles = StyleSheet.create({
-
-})

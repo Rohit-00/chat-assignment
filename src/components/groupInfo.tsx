@@ -47,15 +47,15 @@ const GroupInfo = () => {
   }
 }}
 >
-        <MenuOption onSelect={() => alert(`Save`)} style={{borderBottomWidth:1,borderBottomColor:'#E5E5E0',padding:15,flexDirection:'row', gap:8}} >
+        <MenuOption onSelect={() => alert(`Members`)} style={{borderBottomWidth:1,borderBottomColor:'#E5E5E0',padding:15,flexDirection:'row', gap:8}} >
             <Ionicons name="people-outline" size={24} color={colors.text} />
             <Text style={styles.menuText}>Members</Text>
             </MenuOption>
-        <MenuOption onSelect={() => alert(`Delete`)} style={{borderBottomWidth:1,borderBottomColor:'#E5E5E0',padding:15, flexDirection:'row',gap:8}} >
+        <MenuOption onSelect={() => alert(`Shared`)} style={{borderBottomWidth:1,borderBottomColor:'#E5E5E0',padding:15, flexDirection:'row',gap:8}} >
             <Ionicons name="call-outline" size={24} color={colors.text} />
           <Text style={styles.menuText}>Share Number</Text>
         </MenuOption>
-        <MenuOption onSelect={() => alert(`Not called`)} style={{padding:15, flexDirection:'row', gap:8}} >
+        <MenuOption onSelect={() => alert(`Reported`)} style={{padding:15, flexDirection:'row', gap:8}} >
             <MaterialCommunityIcons name="chat-remove-outline" size={24} color={colors.text} />
             <Text style={styles.menuText}>Report</Text>
             </MenuOption>
@@ -71,7 +71,7 @@ export default GroupInfo
 const styles = StyleSheet.create({
     container:{
         flexDirection:'row',
-        marginTop:20,
+        marginTop:12,
         alignItems:'center',
         justifyContent:'space-between',
         marginHorizontal:20,
