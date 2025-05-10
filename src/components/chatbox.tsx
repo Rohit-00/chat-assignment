@@ -51,7 +51,7 @@ const CustomBubble = (props: any) => {
 };
 const CustomInputBar = (props: any) => {
   return (
-    <View style={{ flexDirection: 'row', alignItems: 'center',paddingVertical:0,paddingHorizontal:15, marginHorizontal:20, backgroundColor:'white',borderRadius:10 }}>
+    <View style={{ flexDirection: 'row', alignItems: 'center',paddingVertical:0,paddingHorizontal:15, marginHorizontal:10, backgroundColor:'white',borderRadius:10 }}>
       <Composer
         {...props}
         textInputStyle={{ flex: 1 }}
