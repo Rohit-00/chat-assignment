@@ -73,7 +73,7 @@ const CustomInputBar = (props: any) => {
       /> */}
           <Menu renderer={Popover} rendererProps={{ placement:'top',anchorStyle:{backgroundColor:'green'}}} >
       <MenuTrigger>
-        <MaterialCommunityIcons name="attachment" size={32} color="#141E0D" style={{ padding: 10 }} />
+        <MaterialCommunityIcons name="attachment" size={30} color="#141E0D" style={{ padding: 10, transform:[{rotate:'135deg'}]  }} />
       </MenuTrigger>
 
       <MenuOptions customStyles={{
@@ -108,7 +108,7 @@ const CustomInputBar = (props: any) => {
       </MenuOptions>
     </Menu>
       <Send {...props} containerStyle={{ justifyContent: 'center', alignItems: 'center' }} >
-        <Octicons name="paper-airplane" size={22} color="#141E0D" style={{ marginLeft:15 }} />
+        <Octicons name="paper-airplane" size={22} color="#141E0D" style={{ marginLeft:8, }} />
       </Send>
       </View>
     </View>

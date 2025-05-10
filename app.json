@@ -25,6 +25,12 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "a27b256e-eccc-4950-8b22-d59093bf6595"
+      }
+    },
+    "owner": "rohit965"
   }
 }
